@@ -1,4 +1,4 @@
-import {v2 as cloudi} from 'cloudinary'
+import {v2 as cloudinary} from 'cloudinary'
 import fs from 'fs'
 
 cloudinary.config({ 
@@ -11,7 +11,7 @@ const uploadOnCloudi = async (localFilePath) => {
     try {
         if(!localFilePath) return null;
         // upload the file on cloudinary
-        const res = await cloudi.uploader.upload(localFilePath, {
+        const res = await cloudinary.uploader.upload(localFilePath, {
             resource_type: 'auto'
         })
 
@@ -27,4 +27,4 @@ const uploadOnCloudi = async (localFilePath) => {
 }
 
 
-export { uploadOnCloudi}
+export { uploadOnCloudi }
