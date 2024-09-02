@@ -8,14 +8,18 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const generateAccessandRefreshToken = async (userId) => {
     try {
-        const userr = await User.findById(userId)
-        const accessToken = userr.generateAccessToken()
-        const refreshToken = userr.generateRefreshToken()
+        const user = await User.findById(userId)
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
 
-        userr.refreshToken = refreshToken
-        await userr.save({ validateBeforeSave: false })
+        // console.log("refreshToken :", refreshToken )
+        // console.log("accessToken :", accessToken )
+
+        user.refreshToken = refreshToken
+        await user.save({ validateBeforeSave: false })
         
         return { accessToken, refreshToken }
+
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating access and refresh token")
     }
@@ -133,7 +137,7 @@ const loginUser = asyncHandler( async (req, res) => {
         throw new ApiError(401, "Invalid user credentials")
     }
 
-    const { accessToken, refreshToken } = await user.generateAccessandRefreshToken(user._id)
+    const { accessToken, refreshToken } = await generateAccessandRefreshToken(user._id)
 
     const loggedUser = await User.findById(user._id).select("-password -refreshToken")
 
