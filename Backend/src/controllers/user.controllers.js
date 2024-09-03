@@ -4,7 +4,7 @@ import { User } from '../models/user.models.js';
 import { uploadOnCloudi } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
-// import mongoose from 'mongoose'
+import mongoose from 'mongoose'
 
 
 
@@ -172,8 +172,11 @@ const logoutUser = asyncHandler( async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: {
-                refreshToken: undefined,
+            // $set: {
+            //      refreshToken: undefined,
+            // }
+            $unset: {
+                 refreshToken: 1,
             }
         },
         {
@@ -225,7 +228,7 @@ const refreshAccessToken  = asyncHandler( async (req, res) => {
             throw new ApiError(401, "Refresh token is expired or used") 
         }
     
-        const { accessToken, newRefreshToken } = await generateAccessandRefreshToken(user._id)
+        const { accessToken, refreshToken } = await generateAccessandRefreshToken(user._id)
     
         const options = {
             httpOnly: true,
@@ -235,11 +238,11 @@ const refreshAccessToken  = asyncHandler( async (req, res) => {
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
             new ApiResponse(
                 200,
-                { accessToken, refreshToken: newRefreshToken },
+                { accessToken, refreshToken },
                 "Access token refreshed"
             )
         )
@@ -445,7 +448,7 @@ const getUserChannelProfile = asyncHandler( async (req, res) => {
             }
         }
     ])
-    console.log(channel)
+    // console.log(channel)
     
     if(!channel?.length) {
         throw new ApiError(404, "Channel does not exist")
@@ -514,7 +517,7 @@ const getWatchHistory = asyncHandler( async (req, res) => {
             }
         }
     ])
-    console.log(user)
+    // console.log(user)
 
     return res
     .status(200)
