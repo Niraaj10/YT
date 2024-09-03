@@ -201,10 +201,103 @@ const removeVideoFromPlaylist = asyncHandler( async (req, res) => {
 
 
 
+const getPlaylistById = asyncHandler( async (req, res) => {
+    const { playlistId } = req.params
+
+    if(!isValidObjectId(playlistId) ) {
+        throw new ApiError(404, "Please provide correct playlistId")
+    }
+
+    const playlist = await Playlist.findById(playlistId)
+
+    if(!playlist) {
+        throw new ApiError(404, "There is no playlist with this playlist ID")
+    }
+
+    res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { playlist },
+            "Playlist fetched successfully"
+        )
+    )
+})
+
+
+
+const updatePlaylist = asyncHandler( async (req, res) => {
+    const { playlistId } = req.params
+    const { name, description } = req.body
+
+    if(!name || !description ) {
+        throw new ApiError(404, "All fields are required")
+    }
+
+    const playlist = await Playlist.findByIdAndUpdate(
+        playlistId,
+        {
+            $set: {
+                name,
+                description
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    if(!playlist) {
+        throw new ApiError(404, "There is no playlist with this playlist ID")
+    }
+
+    res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { playlist },
+            "Playlist updated successfully"
+        )
+    )
+})
+
+
+
+const deletePlaylist = asyncHandler( async (req, res) => {
+    const { playlistId } = req.params
+
+    if(!isValidObjectId(playlistId) ) {
+        throw new ApiError(404, "Please provide correct playlistId")
+    }
+
+    const playlist = await Playlist.findByIdAndDelete(playlistId)
+
+    if(!playlist) {
+        throw new ApiError(404, "There is no playlist with this playlist ID")
+    }
+
+    res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { playlist },
+            "Playlist Deleted successfully"
+        )
+    )
+})
+
+
+
 
 export {
     createPlaylist,
     getuserPlaylist,
     addVideoToPlaylist,
-    removeVideoFromPlaylist
+    removeVideoFromPlaylist,
+    getPlaylistById,
+    updatePlaylist,
+    deletePlaylist
 }
