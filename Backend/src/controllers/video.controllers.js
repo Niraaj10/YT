@@ -272,6 +272,70 @@ const updateVideoDetails = asyncHandler(async (req, res) => {
 
 
 
+const togglePublishStatus = asyncHandler(async (req, res) => {
+    const { videoId } = req.params
+
+    if (!videoId) {
+        throw new ApiError(404, "Provide correct Video ID")
+    }
+
+    const video = await Video.findById(videoId)
+
+    if (!video) {
+        throw new ApiError(404, "Video not found")
+    }
+
+    if(video.title && !video.videoFile) {
+        video.isPublished = false
+    } else {
+        video.isPublished = true
+    }
+
+    const toggledvideo = await video.save()
+
+
+    res
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                { toggledvideo },
+                "isPublished toggled successfully"
+            )
+        )
+})
+
+
+
+const viewCount = asyncHandler(async (req, res) => {
+    const { videoId } = req.params
+
+    if (!videoId) {
+        throw new ApiError(404, "Provide correct Video ID")
+    }
+
+    const video = await Video.findById(videoId)
+
+    if (!video) {
+        throw new ApiError(404, "Video not found")
+    }
+
+    // video.views += 1
+    video.views = (video.views || 0) + 1;
+
+    const viewupdatedVideo = await video.save()
+
+
+    res
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                { viewupdatedVideo },
+                "isPublished toggled successfully"
+            )
+        )
+})
 
 
 export {
@@ -279,5 +343,7 @@ export {
     getAllVideos,
     getVideoById,
     deleteVideo,
-    updateVideoDetails
+    updateVideoDetails,
+    togglePublishStatus,
+    viewCount
 } 
