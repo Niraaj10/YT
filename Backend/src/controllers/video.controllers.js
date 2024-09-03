@@ -166,8 +166,61 @@ const publishVideo = asyncHandler(async (req, res) => {
 
 
 
+const getVideoById = asyncHandler( async (req, res) => {
+    const { videoId }= req.params
+
+    if(!videoId) {
+        throw new ApiError(404, "Provide correct Video ID")
+    }
+
+    const video = await Video.findById(videoId)
+
+    if (!video) {
+        throw new ApiError(404, "Video not found")
+    }
+
+    res
+    .status(201)
+    .json(
+        new ApiResponse(
+            200,
+            {video},
+            "Video fetched successfully"
+        )
+    )
+})
+
+
+
+const deleteVideo = asyncHandler( async (req, res) => {
+    const { videoId }= req.params
+
+    if(!videoId) {
+        throw new ApiError(404, "Provide correct Video ID")
+    }
+
+    const video = await Video.findByIdAndDelete(videoId)
+
+    if (!video) {
+        throw new ApiError(404, "Video not found")
+    }
+
+    res
+    .status(201)
+    .json(
+        new ApiResponse(
+            200,
+            {video},
+            "Video deleted successfully"
+        )
+    )
+})
+
+
 
 export {
     publishVideo,
-    getAllVideos
+    getAllVideos,
+    getVideoById,
+    deleteVideo
 } 
