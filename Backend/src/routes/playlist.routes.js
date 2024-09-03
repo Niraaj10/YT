@@ -17,7 +17,7 @@ router
     .route("/:playlistId")
     .get(getPlaylistById)
     .patch(updatePlaylist)
-    .delete(deletePlaylist);
+    .delete(deletePlaylist)
 
 
 export default router
