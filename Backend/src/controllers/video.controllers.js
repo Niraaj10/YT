@@ -34,7 +34,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
 
 
-   
+
 
 
 
@@ -104,15 +104,15 @@ const getAllVideos = asyncHandler(async (req, res) => {
     const AllVidoes = await Video.aggregate(pipeline)
 
 
-     res
-    .status(201)
-    .json(
-        new ApiResponse(
-            200,
-            "All videos fetched successfully",
-            {AllVidoes}
+    res
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                "All videos fetched successfully",
+                { AllVidoes }
+            )
         )
-    )
 
 })
 
@@ -166,10 +166,10 @@ const publishVideo = asyncHandler(async (req, res) => {
 
 
 
-const getVideoById = asyncHandler( async (req, res) => {
-    const { videoId }= req.params
+const getVideoById = asyncHandler(async (req, res) => {
+    const { videoId } = req.params
 
-    if(!videoId) {
+    if (!videoId) {
         throw new ApiError(404, "Provide correct Video ID")
     }
 
@@ -180,22 +180,22 @@ const getVideoById = asyncHandler( async (req, res) => {
     }
 
     res
-    .status(201)
-    .json(
-        new ApiResponse(
-            200,
-            {video},
-            "Video fetched successfully"
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                { video },
+                "Video fetched successfully"
+            )
         )
-    )
 })
 
 
 
-const deleteVideo = asyncHandler( async (req, res) => {
-    const { videoId }= req.params
+const deleteVideo = asyncHandler(async (req, res) => {
+    const { videoId } = req.params
 
-    if(!videoId) {
+    if (!videoId) {
         throw new ApiError(404, "Provide correct Video ID")
     }
 
@@ -206,15 +206,71 @@ const deleteVideo = asyncHandler( async (req, res) => {
     }
 
     res
-    .status(201)
-    .json(
-        new ApiResponse(
-            200,
-            {video},
-            "Video deleted successfully"
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                { video },
+                "Video deleted successfully"
+            )
         )
-    )
 })
+
+
+
+const updateVideoDetails = asyncHandler(async (req, res) => {
+    const { videoId } = req.params
+    const { title, description } = req.body
+
+    if (!videoId) {
+        throw new ApiError(404, "Provide correct Video ID")
+    }
+
+    if (!title &&!description) {
+        throw new ApiError(400, "Please provide title or description")
+    }
+
+    const thumbnailLocalPath = req.file?.path
+    
+
+    if(!thumbnailLocalPath) {
+        throw new ApiError(400, "Thumbnail not found")
+    }
+    
+    const thumbnailUpdated = await uploadOnCloudi(thumbnailLocalPath)
+
+    if(!thumbnailUpdated.url) {
+        throw new ApiError(400, "Error while uploading thumbnail")
+    } 
+
+
+    const video = await Video.findByIdAndUpdate(
+        videoId,
+        {
+            $set: {
+                title,
+                description,
+                thumbnail: thumbnailUpdated.url                
+            }
+        }
+    )
+
+    if (!video) {
+        throw new ApiError(404, "Video not found")
+    }
+
+    res
+        .status(201)
+        .json(
+            new ApiResponse(
+                200,
+                { video },
+                "Video deleted successfully"
+            )
+        )
+})
+
+
 
 
 
@@ -222,5 +278,6 @@ export {
     publishVideo,
     getAllVideos,
     getVideoById,
-    deleteVideo
+    deleteVideo,
+    updateVideoDetails
 } 
