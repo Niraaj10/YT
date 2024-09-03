@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiError } from '../utils/ApiError.js';
 import { Playlist } from "../models/playlist.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { User } from "../models/user.models.js";
 
 
@@ -124,12 +124,87 @@ const getuserPlaylist = asyncHandler( async (req, res) => {
 }) 
 
 
+const addVideoToPlaylist = asyncHandler( async ( req, res) => {
+    const { playlistId, videoId } = req.params
+    // const { videoId } = req.body
 
+    if( !isValidObjectId(playlistId) && !isValidObjectId(videoId) ) {
+        throw new ApiError(404, "Please provide correct playlistId and VideoId")
+    }
+
+    // const checkVideo = await Playlist.find({ videos: videoId})
+
+    // if (checkVideo.length > 0) {
+    //     throw new ApiError(404, "Video is already in the playlist")
+    // }
+
+    const playlist = await Playlist.findByIdAndUpdate(
+        playlistId,
+        { 
+            $push: {
+                 videos: videoId 
+            }
+        },
+        { new: true }
+    )
+
+    if (!playlist) {
+        throw new ApiError(404, "Error while updating playlist")
+    }
+
+    res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { playlist },
+            "Video added to playlist successfully"
+        )
+    )
+})
+
+
+const removeVideoFromPlaylist = asyncHandler( async (req, res) => {
+    const { playlistId, videoId } = req.params
+
+    if(!isValidObjectId(playlistId) && !isValidObjectId(videoId) ) {
+        throw new ApiError(404, "Please provide correct playlistId and VideoId")
+    }
+
+    const playlist = await Playlist.findByIdAndUpdate(
+        playlistId,
+        {
+            $pull:{
+                videos: videoId
+            }
+        },
+
+        { new: true }
+    )
+
+    if (!playlist) {
+        throw new ApiError(404, "Error while updating playlist")
+    }
+
+    console.log(playlist)
+
+    res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { playlist },
+            "Video removed to playlist successfully"
+        )
+    )
+})
 
 
 
 
 export {
     createPlaylist,
-    getuserPlaylist
+    getuserPlaylist,
+    addVideoToPlaylist,
+    removeVideoFromPlaylist
 }
