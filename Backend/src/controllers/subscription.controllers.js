@@ -47,14 +47,14 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
         if (!newSub) throw new ApiError(500, "Failed to toggle Subscription");
 
-        let totalSubs = await Subscription.countDocuments({ channel: isChannel });
+        let totalSubsChannels = await Subscription.countDocuments({ channel: isChannel });
 
         return res
             .status(200)
             .json(
                 new ApiResponse(
                     200,
-                    { newSub, totalSubs },
+                    { newSub, totalSubsChannels },
                     "Subscribed successfully"
                 )
             );
@@ -64,19 +64,19 @@ const toggleSubscription = asyncHandler(async (req, res) => {
 
 
 
-const getSubsribedChannel = asyncHandler(async (req, res) => {
-    const { channelId } = req.params; // Channel Id === req.user
+const getUserChannelSubscribers = asyncHandler(async (req, res) => {
+    const { subscriberId } = req.params; 
 
-    if (!channelId) throw new ApiError(400, "Provide ChannelId");
+    if (!subscriberId) throw new ApiError(400, "Provide ChannelId");
 
-    const isChannel = await User.findById(channelId);
+    const isUser = await User.findById(subscriberId);
 
-    if (!isChannel) throw new ApiError(400, "Channel not found");
+    if (!isUser) throw new ApiError(400, "Channel not found");
 
     const subscribers = await Subscription.aggregate([
         {
             $match: {
-                channel: new mongoose.Types.ObjectId(channelId),
+                channel: new mongoose.Types.ObjectId(subscriberId),
             },
         },
         {
@@ -99,7 +99,7 @@ const getSubsribedChannel = asyncHandler(async (req, res) => {
     ])
 
 
-    let totalSubs = await Subscription.countDocuments({ channel: isChannel });
+    let totalSubs = await Subscription.countDocuments({ channel: isUser });
 
     return res
     .status(200)
@@ -107,14 +107,68 @@ const getSubsribedChannel = asyncHandler(async (req, res) => {
         new ApiResponse(
                     200,
                     { subscribers, totalSubs },
-                    "Subscribed Channel Details"
+                    "Channel Subs Details"
         )
     );
 })
 
 
 
+const getSubsribedChannel = asyncHandler(async (req, res) => {
+    const { channelId } = req.params; // Channel Id === req.user
+
+    if (!channelId) throw new ApiError(400, "Provide ChannelId");
+
+    const isChannel = await User.findById(channelId);
+
+    if (!isChannel) throw new ApiError(400, "Channel not found");
+
+    const Channels = await Subscription.aggregate([
+        {
+            $match: {
+                subscriber: new mongoose.Types.ObjectId(channelId),
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "subscriber",
+                foreignField: "_id",
+                as: "subscriberDetails",
+                pipeline: [
+                    {
+                        $project: {
+                            fullname: 1,
+                            username: 1,
+                            avatar: 1
+                        }
+                    }
+                ]
+            },
+        },
+    ])
+
+
+    let totalSubs = await Subscription.countDocuments({ subscriber: isChannel });
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+                    200,
+                    { Channels, totalSubs },
+                    "Subscribed Channel Details"
+        )
+    );
+})
+
+
+// const 
+
+
+
 export {
     toggleSubscription,
-    getSubsribedChannel
+    getSubsribedChannel,
+    getUserChannelSubscribers
 }
