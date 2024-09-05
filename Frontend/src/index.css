@@ -6,9 +6,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: #0f0f0f;
 }
 
 body{
     color: white;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }

@@ -20,13 +20,14 @@ function App() {
         <BrowserRouter>
           <div>
             <Navbar />
-            <div className='flex'>
+            <div className='flex '>
 
               <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
               <Routes>
                 <Route index element={<Home />} />
                 <Route path='/videos' element={<Videos />} />
+                
                 <Route path='/login' element={<Login />} />
                 {/* <Route path="blogs" element={<Blogs />} /> */}
 

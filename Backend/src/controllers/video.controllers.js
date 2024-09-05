@@ -9,7 +9,8 @@ import { uploadOnCloudi } from "../utils/cloudinary.js";
 const getAllVideos = asyncHandler(async (req, res) => {
     // const videos = await Video.find({ isPublished: true }).sort({ createdAt: -1 })
 
-    const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
+    // const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
+    const { page = 1, limit = 10, query = '', sortBy = 'createdAt', sortType = 'asc', userId } = req.query
 
     //get Videos without User details
 

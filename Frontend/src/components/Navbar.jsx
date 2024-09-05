@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../globalState/userState';
 import { BiLogOut } from 'react-icons/bi';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -34,6 +35,7 @@ const Navbar = () => {
                 theme: "dark",
                 progressStyle: { backgroundColor: 'red' }
             });
+            
 
             setUser(null)
             console.log(res)
@@ -44,10 +46,12 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='p-4  '>
+            <div className='Navbar p-4  '>
                 {/* Navbar */}
 
-                <ToastContainer/>
+                <ToastContainer
+
+                />
 
 
 
@@ -66,7 +70,7 @@ const Navbar = () => {
 
                     {
                         user ? (
-                            <div className='flex justify-center items-center gap-2'>
+                            <div className='hidden md:flex lg:flex justify-center items-center gap-2'>
 
                                 <div className='Login bg-[#272727] border border-[#303030] rounded-3xl px-6 flex justify-center items-center font-bold py-1'>
                                     <div>
@@ -81,7 +85,7 @@ const Navbar = () => {
                             </div>
 
                         ) : (
-                            <div className='Login bg-[#272727] border border-[#303030] rounded-3xl px-6 flex justify-center items-center font-bold py-1'>
+                            <div className='hidden md:flex lg:flex Login bg-[#272727] border border-[#303030] rounded-3xl px-6  justify-center items-center font-bold py-1'>
                                 <Link to='/login' className='bg-[#272727]'>
                                     Login
                                 </Link>

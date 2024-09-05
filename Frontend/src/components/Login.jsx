@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../globalState/userState';  
+import { UserContext } from '../globalState/userState';
 import { useContext } from 'react';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
     const { setUser } = useContext(UserContext);
     const [islogin, setIslogin] = useState(true);
     const [profile, setProfile] = useState(null);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState({
         username: '',
         password: ''
@@ -45,17 +46,22 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         // console.log(loginUser);
-        
+
         try {
             const res = await axios.post(`${baseUrl}/users/login`, {
                 username: loginUser.username,
                 password: loginUser.password
             },
             {
-                withCredentials: true 
-            });
-    
-            toast('Login Successfull', {
+                withCredentials: true
+            }
+            );
+
+            
+            
+            // console.log(res.data);
+            console.log(res.data.message.user);
+            toast('Notification!', {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -64,12 +70,7 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                progressStyle: { backgroundColor: 'red', color: 'black',  }
             });
-
-
-            // console.log(res.data);
-            console.log(res.data.message.user);
             setUser(res.data.message.user)
             navigate('/')
         } catch (error) {
@@ -81,7 +82,7 @@ const Login = () => {
     const handleSign = async (e) => {
         e.preventDefault();
         console.log(signupUser);
-        console.log(profile); 
+        console.log(profile);
         try {
             const res = await axios.post(`${baseUrl}/users/register`, {
                 username: signupUser.username,
@@ -100,21 +101,32 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                progressStyle: { backgroundColor: 'red', color: 'black',  }
+                progressStyle: { backgroundColor: 'red', color: 'black', }
             });
-    
+
             console.log(res.data);
             // navigate('/')
         } catch (error) {
             console.log(error.message);
             alert("Please enter correct username and password");
-        } 
+        }
     };
 
 
     return (
         <>
-            <ToastContainer/>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className='Login w-full h-full  my-auto mx-auto'>
 
                 <div className='mx-auto w-[30vw] h-[60vh] flex flex-col justify-center items-center px-7 '>
