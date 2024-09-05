@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../globalState/userState';  
 import { useContext } from 'react';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const { setUser } = useContext(UserContext);
@@ -48,8 +50,24 @@ const Login = () => {
             const res = await axios.post(`${baseUrl}/users/login`, {
                 username: loginUser.username,
                 password: loginUser.password
+            },
+            {
+                withCredentials: true 
             });
     
+            toast('Login Successfull', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                progressStyle: { backgroundColor: 'red', color: 'black',  }
+            });
+
+
             // console.log(res.data);
             console.log(res.data.message.user);
             setUser(res.data.message.user)
@@ -72,6 +90,18 @@ const Login = () => {
                 email: signupUser.email,
                 avatar: profile
             });
+
+            toast('Account Created Successfully, Please login', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                progressStyle: { backgroundColor: 'red', color: 'black',  }
+            });
     
             console.log(res.data);
             // navigate('/')
@@ -84,7 +114,9 @@ const Login = () => {
 
     return (
         <>
+            <ToastContainer/>
             <div className='Login w-full h-full  my-auto mx-auto'>
+
                 <div className='mx-auto w-[30vw] h-[60vh] flex flex-col justify-center items-center px-7 '>
 
                     {/* Login Form */}

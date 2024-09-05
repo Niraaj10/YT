@@ -4,16 +4,51 @@ import { RiSearch2Line } from "react-icons/ri";
 import { IoMenu } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../globalState/userState';
+import { BiLogOut } from 'react-icons/bi';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
 
 const Navbar = () => {
-    const { user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext);
+
+    const baseUrl = 'http://localhost:7000/api/v1';
+
+
+    const logout = async () => {
+        try {
+            const res = await axios.post(`${baseUrl}/users/logout`, {}, { withCredentials: true })
+
+            toast('Logout Successfull', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                progressStyle: { backgroundColor: 'red' }
+            });
+
+            setUser(null)
+            console.log(res)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     return (
         <>
             <div className='p-4  '>
                 {/* Navbar */}
+
+                <ToastContainer/>
+
 
 
                 <div className='flex items-center justify-between'>
@@ -28,21 +63,33 @@ const Navbar = () => {
                         <RiSearch2Line color='red' size={20} className='ml-2 bg-[#121212] mr-4  ' />
                     </div>
 
-                    <div className='Login bg-[#272727] border border-[#303030] rounded-3xl px-6 flex justify-center items-center font-bold py-1'>
-                        {
-                            user ? (
-                                <div>
-                                    <div className='font-bold text-xl'>{user.username}</div>
-                                    {/* <Link to='/logout'>Logout</Link> */}
+
+                    {
+                        user ? (
+                            <div className='flex justify-center items-center gap-2'>
+
+                                <div className='Login bg-[#272727] border border-[#303030] rounded-3xl px-6 flex justify-center items-center font-bold py-1'>
+                                    <div>
+                                        <div className=' bg-[#272727]'>{user.username}</div>
+                                        {/* <Link to='/logout'>Logout</Link> */}
+                                    </div>
                                 </div>
-                            ) : (
+
+                                <div className='Logout' onClick={logout}>
+                                    <BiLogOut size={22} />
+                                </div>
+                            </div>
+
+                        ) : (
+                            <div className='Login bg-[#272727] border border-[#303030] rounded-3xl px-6 flex justify-center items-center font-bold py-1'>
                                 <Link to='/login' className='bg-[#272727]'>
                                     Login
                                 </Link>
-                            )
-                        }
+                            </div>
+                        )
+                    }
 
-                    </div>
+
                 </div>
             </div>
         </>
