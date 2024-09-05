@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Sidebar from './components/Sidebar'
 import NoPage from './components/NoPage'
+import Videos from './components/Videos'
 
 
 function App() {
@@ -20,8 +21,11 @@ function App() {
           <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
           <Routes>
-            <Route index element={<Home i/>} />
+            <Route index element={<Home />} />
+            <Route path='/videos' element={<Videos />} />
+            <Route index element={<Home />} />
             {/* <Route path="blogs" element={<Blogs />} /> */}
+
             <Route path="*" element={<NoPage />} />
           </Routes>
           </div>

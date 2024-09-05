@@ -5,6 +5,7 @@ import { BiLike } from "react-icons/bi";
 import { FaHistory } from "react-icons/fa";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 
@@ -16,12 +17,12 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   console.log(selectedCategory)
 
   const sideContent = [
-    { name: 'Home', icon: <ImHome  />, },
-    { name: 'You', icon: <FaRegUser />, },
-    { name: 'Playlist', icon: <RiPlayList2Fill />, },
-    { name: 'History', icon: <FaHistory />, },
-    { name: 'Your videos', icon: <AiFillYoutube />, },
-    { name: 'Liked videos', icon: <BiLike /> },
+    { name: 'Home', icon: <ImHome  />, link: '/'  },
+    { name: 'You', icon: <FaRegUser />, link: '/videos' },
+    { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/' },
+    { name: 'History', icon: <FaHistory />, link: '/' },
+    { name: 'Your videos', icon: <AiFillYoutube />, link: '/' },
+    { name: 'Liked videos', icon: <BiLike />, link: '/' },
   ];
   return (
     <>
@@ -31,13 +32,13 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
         <div className='flex flex-col gap-5 mt-7'>
          {
           sideContent.map((content, index) => (
-            <div key={index} className='flex items-center gap-4 '>
+            <Link to={content.link} key={index} className='flex items-center gap-4 '>
               <span className='icon text-[25px] '>{content.icon}</span>
-              <div className={`font-bold p-2 rounded-xl px-4 hover:bg-[#272727] transition-colors duration-300  ${content.name === selectedCategory ? 'bg-red-600' : 'bg-transparent '}`}
+              <div className={`font-bold p-2 rounded-xl px-4 hover:bg-[#272727] transition-colors duration-300  ${content.name === selectedCategory ? 'bg-red-700' : 'bg-transparent '}`}
               onClick={() => setSelectedCategory(content.name)}
 
               >{content.name}</div> 
-            </div>
+            </Link>
           ))
          }
         </div>
