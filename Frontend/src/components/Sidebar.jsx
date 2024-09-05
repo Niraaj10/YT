@@ -18,8 +18,8 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
 
   const sideContent = [
     { name: 'Home', icon: <ImHome  />, link: '/'  },
-    { name: 'You', icon: <FaRegUser />, link: '/videos' },
-    { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/' },
+    { name: 'You', icon: <FaRegUser />, link: '/login' },
+    { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/videos' },
     { name: 'History', icon: <FaHistory />, link: '/' },
     { name: 'Your videos', icon: <AiFillYoutube />, link: '/' },
     { name: 'Liked videos', icon: <BiLike />, link: '/' },

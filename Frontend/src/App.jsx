@@ -5,6 +5,8 @@ import Home from './components/Home'
 import Sidebar from './components/Sidebar'
 import NoPage from './components/NoPage'
 import Videos from './components/Videos'
+import Login from './components/Login'
+import { UserProvider } from './globalState/userState'; 
 
 
 function App() {
@@ -13,24 +15,27 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <div>
-          <Navbar />
-          <div className='flex'>
+      <UserProvider>
 
-          <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        <BrowserRouter>
+          <div>
+            <Navbar />
+            <div className='flex'>
 
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path='/videos' element={<Videos />} />
-            <Route index element={<Home />} />
-            {/* <Route path="blogs" element={<Blogs />} /> */}
+              <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
-            <Route path="*" element={<NoPage />} />
-          </Routes>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path='/videos' element={<Videos />} />
+                <Route path='/login' element={<Login />} />
+                {/* <Route path="blogs" element={<Blogs />} /> */}
+
+                <Route path="*" element={<NoPage />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </UserProvider>
     </>
   )
 }
