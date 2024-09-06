@@ -6,7 +6,8 @@ import Sidebar from './components/Sidebar'
 import NoPage from './components/NoPage'
 import Videos from './components/Videos'
 import Login from './components/Login'
-import { UserProvider } from './globalState/userState'; 
+import { UserProvider } from './globalState/userState';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'; 
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <UserProvider>
+      <SkeletonTheme baseColor="#313131" highlightColor="#525252">
 
         <BrowserRouter>
           <div>
@@ -36,6 +38,7 @@ function App() {
             </div>
           </div>
         </BrowserRouter>
+      </SkeletonTheme>
       </UserProvider>
     </>
   )
