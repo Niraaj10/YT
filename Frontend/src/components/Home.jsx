@@ -1,4 +1,5 @@
 import React from 'react'
+import Videos from './Videos'
 
 
 const Home = () => {
@@ -6,6 +7,9 @@ const Home = () => {
     <>
       <div className='Home '>
         HOmeeeeee
+
+
+        <Videos />
         
 
       </div>

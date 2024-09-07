@@ -15,10 +15,10 @@ const Videos = () => {
 
       // console.log(res.data);
       setVideos(res.data.data.AllVidoes)
-      // setIsLoading(false)
+      setIsLoading(false)
       console.log(res.data.data.AllVidoes)
     } catch (error) {
-      // setIsLoading(false)
+      setIsLoading(false)
       alert(error.message)
     }
   }
@@ -33,8 +33,71 @@ const Videos = () => {
     return (
       <div className='grid grid-cols-3 gap-11'>
 
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
+      <div className='LoadingSkeleton mx-5 h-[40vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
+        
+        <div className='flex flex-col gap-2'>
+          <div className='flex  flex-col'>
+            <div className='relative overflow-hidden rounded-2xl'>
+              <Skeleton className='w-[24vw] h-[25vh] rounded-2xl object-cover' />
+            </div>
+
+            <div className='py-3 px-4 w-48'>
+              <Skeleton width='100%' height={20} />
+              <Skeleton width='60%' height={15} className='mt-2' />
+              <Skeleton width='40%' height={15} className='mt-1' />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div className='LoadingSkeleton mx-5 h-[40vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
+        
+        <div className='flex flex-col gap-2'>
+          <div className='flex  flex-col'>
+            <div className='relative overflow-hidden rounded-2xl'>
+              <Skeleton className='w-[24vw] h-[25vh] rounded-2xl object-cover' />
+            </div>
+
+            <div className='py-3 px-4 w-48'>
+              <Skeleton width='100%' height={20} />
+              <Skeleton width='60%' height={15} className='mt-2' />
+              <Skeleton width='40%' height={15} className='mt-1' />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div className='LoadingSkeleton mx-5 h-[40vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
+        
+        <div className='flex flex-col gap-2'>
+          <div className='flex  flex-col'>
+            <div className='relative overflow-hidden rounded-2xl'>
+              <Skeleton className='w-[24vw] h-[25vh] rounded-2xl object-cover' />
+            </div>
+
+            <div className='py-3 px-4 w-48'>
+              <Skeleton width='100%' height={20} />
+              <Skeleton width='60%' height={15} className='mt-2' />
+              <Skeleton width='40%' height={15} className='mt-1' />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      {/* <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
+        
         <div className='flex flex-col gap-2'>
           <div className='flex lg:flex-row md:flex-row flex-col'>
             <div className='relative overflow-hidden rounded-2xl'>
@@ -53,117 +116,9 @@ const Videos = () => {
             
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
-        <div className='flex flex-col gap-2'>
-          <div className='flex lg:flex-row md:flex-row flex-col'>
-            <div className='relative overflow-hidden rounded-2xl'>
-              <Skeleton className='lg:w-[6vw] lg:h-[12vh] rounded-2xl object-cover' />
-            </div>
-
-            <div className='py-3 px-4 w-48'>
-              <Skeleton width='100%' height={20} />
-              <Skeleton width='60%' height={15} className='mt-2' />
-              <Skeleton width='40%' height={15} className='mt-1' />
-            </div>
-          </div>
-
-          <div className='flex lg:flex-row flex-col lg:justify-center items-center gap-2'>
-            <Skeleton width='100px' height={40} />
-            
-          </div>
-        </div>
-      </div>
-
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
-        <div className='flex flex-col gap-2'>
-          <div className='flex lg:flex-row md:flex-row flex-col'>
-            <div className='relative overflow-hidden rounded-2xl'>
-              <Skeleton className='lg:w-[6vw] lg:h-[12vh] rounded-2xl object-cover' />
-            </div>
-
-            <div className='py-3 px-4 w-48'>
-              <Skeleton width='100%' height={20} />
-              <Skeleton width='60%' height={15} className='mt-2' />
-              <Skeleton width='40%' height={15} className='mt-1' />
-            </div>
-          </div>
-
-          <div className='flex lg:flex-row flex-col lg:justify-center items-center gap-2'>
-            <Skeleton width='100px' height={40} />
-            
-          </div>
-        </div>
-      </div>
-
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
-        <div className='flex flex-col gap-2'>
-          <div className='flex lg:flex-row md:flex-row flex-col'>
-            <div className='relative overflow-hidden rounded-2xl'>
-              <Skeleton className='lg:w-[6vw] lg:h-[12vh] rounded-2xl object-cover' />
-            </div>
-
-            <div className='py-3 px-4 w-48'>
-              <Skeleton width='100%' height={20} />
-              <Skeleton width='60%' height={15} className='mt-2' />
-              <Skeleton width='40%' height={15} className='mt-1' />
-            </div>
-          </div>
-
-          <div className='flex lg:flex-row flex-col lg:justify-center items-center gap-2'>
-            <Skeleton width='100px' height={40} />
-            
-          </div>
-        </div>
-      </div>
-
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
-        <div className='flex flex-col gap-2'>
-          <div className='flex lg:flex-row md:flex-row flex-col'>
-            <div className='relative overflow-hidden rounded-2xl'>
-              <Skeleton className='lg:w-[6vw] lg:h-[12vh] rounded-2xl object-cover' />
-            </div>
-
-            <div className='py-3 px-4 w-48'>
-              <Skeleton width='100%' height={20} />
-              <Skeleton width='60%' height={15} className='mt-2' />
-              <Skeleton width='40%' height={15} className='mt-1' />
-            </div>
-          </div>
-
-          <div className='flex lg:flex-row flex-col lg:justify-center items-center gap-2'>
-            <Skeleton width='100px' height={40} />
-            
-          </div>
-        </div>
-      </div>
-
-      <div className='LoadingSkeleton mx-5 h-[35vh] z-40 flex flex-col bg-[#0f0f0f] border border-[#303030] rounded-3xl p-3'>
-        {/* Skeleton Structure while loading */}
-        <div className='flex flex-col gap-2'>
-          <div className='flex lg:flex-row md:flex-row flex-col'>
-            <div className='relative overflow-hidden rounded-2xl'>
-              <Skeleton className='lg:w-[6vw] lg:h-[12vh] rounded-2xl object-cover' />
-            </div>
-
-            <div className='py-3 px-4 w-48'>
-              <Skeleton width='100%' height={20} />
-              <Skeleton width='60%' height={15} className='mt-2' />
-              <Skeleton width='40%' height={15} className='mt-1' />
-            </div>
-          </div>
-
-          <div className='flex lg:flex-row flex-col lg:justify-center items-center gap-2'>
-            <Skeleton width='100px' height={40} />
-            
-          </div>
-        </div>
-      </div>
+  
 
       </div>
     );

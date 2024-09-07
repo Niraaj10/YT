@@ -52,13 +52,13 @@ const Login = () => {
                 username: loginUser.username,
                 password: loginUser.password
             },
-            {
-                withCredentials: true
-            }
+                {
+                    withCredentials: true
+                }
             );
 
-            
-            
+
+
             // console.log(res.data);
             console.log(res.data.message.user);
             toast('Notification!', {
@@ -71,7 +71,11 @@ const Login = () => {
                 progress: undefined,
                 theme: "dark",
             });
+
             setUser(res.data.message.user)
+            console.log(res.data.message.user)
+            localStorage.setItem('user', JSON.stringify(res.data.message.user));
+
             navigate('/')
         } catch (error) {
             console.log(error.message);
