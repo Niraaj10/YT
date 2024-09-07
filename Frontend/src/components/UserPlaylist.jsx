@@ -168,7 +168,7 @@ const UserPlaylist = () => {
               <div className='relative'>
                 <img src={playlist?.videos[0]?.thumbnail} alt="" className='w-[18vw] h-[20vh] object-cover rounded-2xl' />
 
-                <div className='absolute bottom-1 right-1 bg-gray-500 bg-opacity-50 text-white font-semibold text-xs p-1 px-2 rounded-lg flex gap-1 items-center'><RiPlayList2Fill className='bg-transparent' /> {playlist.videos.length} videos</div>
+                
               </div>
 
                 <div className='px-5 mt-3'>

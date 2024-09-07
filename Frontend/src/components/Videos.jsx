@@ -22,7 +22,7 @@ const Videos = () => {
       alert(error.message)
     }
   }
-  // console.log(videos)
+  console.log(videos)
 
   useEffect(() => {
     allVideos()
@@ -134,7 +134,11 @@ const Videos = () => {
           {
             Array.isArray(videos) && videos?.map(video => (
               <div key={video._id} className='videoCard w-[24vw] h-[42vh]  rounded-xl'>
+                <div className='relative'>
                 <img src={video.thumbnail || <Skeleton />} alt="" className='w-[24vw] h-[28vh] object-cover rounded-2xl' />
+
+                <div className='absolute bottom-1 right-2 bg-gray-500 bg-opacity-50 text-white font-semibold text-xs p-1 px-2 rounded-lg flex gap-1 items-center'> {video.duration.toFixed(2)} videos</div>
+                </div>
 
                 <div className='px-5 mt-3'>
                   <div className='flex items-center gap-3'>
