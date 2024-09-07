@@ -49,6 +49,7 @@ const Navbar = () => {
             localStorage.removeItem('refreshToken');
 
             console.log(res)
+            navigate('/')
 
         } catch (error) {
             alert(error.message)

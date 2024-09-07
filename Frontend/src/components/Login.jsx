@@ -83,7 +83,8 @@ const Login = () => {
 
             
 
-            navigate('/')
+            // navigate('/')
+            navigate('/userdetails')
         } catch (error) {
             console.log(error.message);
             alert("Please enter correct username and password");

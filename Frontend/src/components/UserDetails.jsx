@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { UserContext } from '../globalState/userState'
+import UserDTab from './UserDTab'
 import axios from 'axios'
 
 const UserDetails = () => {
@@ -10,28 +11,30 @@ const UserDetails = () => {
     const [userChannelDetails, setUserChannelDetails] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(user)
+    console.log(userChannelDetails)
+    // console.log(user)
 
     const userChannelStats = async () => {
         try {
-          const res = await axios.get(`${baseUrl}/dashboard/channelstats/${user._id}`, 
-            {
-                withCredentials: true
-            })
-    
-          console.log(res);
-          setIsLoading(false)
-          setUserChannelDetails(res.data.message)
+            const res = await axios.get(`${baseUrl}/dashboard/channelstats/${user._id}`,
+                {
+                    withCredentials: true
+                })
+
+            // console.log(res);
+            setIsLoading(false)
+            setUserChannelDetails(res.data.message)
 
         } catch (error) {
-          setIsLoading(false)
-          alert(error.message)
+            setIsLoading(false)
+            alert(error.message)
         }
     }
 
     useEffect(() => {
         userChannelStats()
     }, [])
+
 
 
     if (isLoading) {
@@ -102,28 +105,42 @@ const UserDetails = () => {
 
     return (
         <>
-            <div className='UserDetails px-11'>
+            <div className='UserDetails px-11 overflow-y-scroll scrollbar-hide h-[90vh] relative'>
                 UserDetails
 
                 <div className=''>
                     <div className='firstCont'>
                         <div>
-                            <img src={user?.coverImage} alt="" className='object-cover w-[80vw] h-[25vh] rounded-2xl' />
+                            <img src={user?.coverImage} alt="" className='object-cover w-[80vw] h-[20vh] rounded-2xl' />
                         </div>
 
-                        <div className='flex'>
-                            <div className='mt-[-40px]'>
-                                <img src={user?.avatar} alt="" className='object-cover w-[16vw] h-[30vh] rounded-full'/>
+                        <div className='flex items-center gap-10 mt-5'>
+                            <div className=''>
+                                <img src={user?.avatar} alt="" className='object-cover w-[11vw] h-[20vh] rounded-full' />
                             </div>
 
-                            <div>
-                                <h1>{user?.username}</h1>
-                                <h1>Subscribers: {userChannelDetails?.totalSubs}</h1>
-                                <h1>Total Videos: {userChannelDetails?.totalVideos}</h1>
-                                <h1>Total Views: {userChannelDetails?.totalViews}</h1>
-                                <h1>following: {userChannelDetails?.subscribedTo}</h1>
+                            <div className='flex flex-col '>
+                                <h1 className='text-3xl font-bold'>{user?.fullname}</h1>
+
+                                <div className='text-[#9e9e9e] flex gap-2 mt-3'>
+
+                                    <h1 className=' font-bold'>@{user?.username}</h1>
+                                    <h1>• Subscribers : <span className='font-bold'>{userChannelDetails?.totalSubs}</span></h1>
+                                    <h1>• Total Videos : <span className='font-bold'>{userChannelDetails?.totalVideos}</span></h1>
+                                    <h1>• Total Views : <span className='font-bold'>{userChannelDetails?.totalViews}</span></h1>
+                                    <h1>• following : <span className='font-bold'>{userChannelDetails?.subscribedTo}</span></h1>
+                                </div>
                             </div>
+
+                            {/* <div>
+                                <button></button>
+                            </div> */}
                         </div>
+                    </div>
+
+
+                    <div className='Midcontainer'>
+                        <UserDTab userDetails={userChannelDetails} />
                     </div>
 
 
