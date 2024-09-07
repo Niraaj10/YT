@@ -69,13 +69,19 @@ const Login = () => {
                 progressStyle: { backgroundColor: 'red', }
             });
 
-            // console.log(res.data);
+            console.log(res.data);
             console.log(res.data.message.user);
-            
+
 
             setUser(res.data.message.user)
+            
             console.log(res.data.message.user)
+
             localStorage.setItem('user', JSON.stringify(res.data.message.user));
+            localStorage.setItem('accessToken', JSON.stringify(res.data.message.accessToken));
+            localStorage.setItem('refreshToken', JSON.stringify(res.data.message.refreshToken));
+
+            
 
             navigate('/')
         } catch (error) {
@@ -99,7 +105,7 @@ const Login = () => {
         try {
             const res = await axios.post(`${baseUrl}/users/register`, formData, {
                 headers: {
-                    'Content-Type':'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 }
             });
 
@@ -117,7 +123,7 @@ const Login = () => {
 
             console.log(res.data);
             setIslogin(!islogin)
-            
+
             // navigate('/')
         } catch (error) {
             console.log(error.message);

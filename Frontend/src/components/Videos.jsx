@@ -16,7 +16,7 @@ const Videos = () => {
       // console.log(res.data);
       setVideos(res.data.data.AllVidoes)
       setIsLoading(false)
-      console.log(res.data.data.AllVidoes)
+      // console.log(res.data.data.AllVidoes)
     } catch (error) {
       setIsLoading(false)
       alert(error.message)

@@ -2,12 +2,13 @@ import React, { useContext } from 'react'
 import { TfiTwitterAlt } from "react-icons/tfi";
 import { RiSearch2Line } from "react-icons/ri";
 import { IoMenu } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../globalState/userState';
 import { BiLogOut } from 'react-icons/bi';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
 
 
 
@@ -16,8 +17,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
     const { user, setUser } = useContext(UserContext);
-
     const baseUrl = 'http://localhost:7000/api/v1';
+    const navigate = useNavigate(); 
 
 
     const logout = async () => {
@@ -36,9 +37,19 @@ const Navbar = () => {
                 progressStyle: { backgroundColor: 'red', }
             });
             
-
+            
             setUser(null)
+
+            Cookies.remove('user');
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+          
+            localStorage.removeItem('user');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+
             console.log(res)
+
         } catch (error) {
             alert(error.message)
         }

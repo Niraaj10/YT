@@ -46,19 +46,20 @@ const getAllVideos = asyncHandler( async (req, res) => {
 
 
 const getChannelStats = asyncHandler(async (req, res) => {
-    // const { userId } = req.params
+    const { userId } = req.params
 
-    // if (!userId) throw new ApiError(404, "Please enter a userId")
+    if (!userId) throw new ApiError(404, "Please enter a userId")
     
-    // const isUser = await User.findById(userId)
+    const isUser = await User.findById(userId)
 
-    // if (!isUser) throw new ApiError(404, "User not found")
+    if (!isUser) throw new ApiError(404, "User not found")
 
     
     
     // const { userId } = req.user._id
 
-    const allvideos = await Video.find({ isPublished: true, owner: req.user._id}).sort({ createdAt: -1})
+    // const allvideos = await Video.find({ isPublished: true, owner: req.user._id}).sort({ createdAt: -1})
+    const allvideos = await Video.find({ isPublished: true, owner: isUser._id}).sort({ createdAt: -1})
 
     if (!allvideos.length) throw new ApiError(404, "No videos found for this user")
 

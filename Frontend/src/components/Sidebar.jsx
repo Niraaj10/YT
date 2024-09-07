@@ -16,6 +16,7 @@ import { UserContext } from '../globalState/userState';
 
 const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   const { user } = useContext(UserContext); 
+  // console.log(user)
   const location = useLocation(); 
 
   useEffect(() => {
@@ -29,9 +30,8 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   useEffect(() => {
     const pathToCategory = {
       '/': 'Home',
-      '/login' : 'You',
-      '/userdetails' : 'You',
       '/videos': 'Playlist',
+      ...(user ? { '/userdetails': 'You' } : { '/login': 'You' })
     };
 
     const currentCategory = pathToCategory[location.pathname];
@@ -41,7 +41,7 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
     }
   }, [location.pathname, setSelectedCategory]);
 
-  console.log(selectedCategory)
+  // console.log(selectedCategory)
 
   const sideContent = [
     { name: 'Home', icon: <ImHome />, link: '/' },
@@ -53,7 +53,7 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   ];
 
   const bottomContent = [
-    { name: 'You', icon: <FaRegUser />, link: '/login' },
+    { name: 'You', icon: <FaRegUser />, link: user ? '/userdetails' : '/login' },
     { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/videos' },
     { name: 'Tweets', icon: <TfiTwitterAlt />, link: '/' },
     { name: 'History', icon: <FaHistory />, link: '/' },

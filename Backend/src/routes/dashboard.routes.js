@@ -8,7 +8,7 @@ router.use(verfiyJWT)
 
 
 router.route('/channelvideos/:userId').get(getAllVideos)
-router.route('/channelstats').get(getChannelStats)
+router.route('/channelstats/:userId').get(getChannelStats)
 
 
 
