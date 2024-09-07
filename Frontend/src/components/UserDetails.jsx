@@ -11,7 +11,7 @@ const UserDetails = () => {
     const [userChannelDetails, setUserChannelDetails] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log(userChannelDetails)
+    // console.log(userChannelDetails)
     // console.log(user)
 
     const userChannelStats = async () => {

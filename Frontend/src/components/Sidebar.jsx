@@ -30,8 +30,10 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   useEffect(() => {
     const pathToCategory = {
       '/': 'Home',
-      '/videos': 'Playlist',
-      ...(user ? { '/userdetails': 'You' } : { '/login': 'You' })
+      '/videos': 'Videos',
+      '/playlist': 'Playlist',
+      '/login': 'You'
+      // ...(user ? { '/userdetails': 'You' } : { '/login': 'You' })
     };
 
     const currentCategory = pathToCategory[location.pathname];
@@ -45,8 +47,11 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
 
   const sideContent = [
     { name: 'Home', icon: <ImHome />, link: '/' },
-    { name: 'You', icon: <FaRegUser />, link: user ? '/userdetails' : '/login' },
-    { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/videos' },
+    // { name: 'You', icon: <FaRegUser />, link: user ? '/userdetails' : '/login' },
+    { name: 'You', icon: <FaRegUser />, link: '/login' },
+    { name: 'User', icon: <FaRegUser />, link: '/userdetails' },
+    { name: 'Playlist', icon: <RiPlayList2Fill />, link: '/playlist' },
+    { name: 'Videos', icon: <RiPlayList2Fill />, link: '/videos' },
     { name: 'History', icon: <FaHistory />, link: '/' },
     { name: 'Your videos', icon: <AiFillYoutube />, link: '/' },
     { name: 'Liked videos', icon: <BiLike />, link: '/' },

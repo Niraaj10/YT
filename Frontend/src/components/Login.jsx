@@ -78,8 +78,8 @@ const Login = () => {
             console.log(res.data.message.user)
 
             localStorage.setItem('user', JSON.stringify(res.data.message.user));
-            localStorage.setItem('accessToken', JSON.stringify(res.data.message.accessToken));
-            localStorage.setItem('refreshToken', JSON.stringify(res.data.message.refreshToken));
+            // localStorage.setItem('accessToken', JSON.stringify(res.data.message.accessToken));
+            // localStorage.setItem('refreshToken', JSON.stringify(res.data.message.refreshToken));
 
             
 

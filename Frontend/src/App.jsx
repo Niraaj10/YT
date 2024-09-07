@@ -9,6 +9,7 @@ import Login from './components/Login'
 import { UserContext, UserProvider } from './globalState/userState';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'; 
 import UserDetails from './components/UserDetails'
+import UserPlaylist from './components/UserPlaylist'
 
 
 function App() {
@@ -33,10 +34,13 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/videos' element={<Videos />} />
 
-                <Route path="/userdetails" element={user ? <UserDetails /> : <Navigate to="/login" />} />
+                {/* <Route path="/userdetails" element={user ? <UserDetails /> : <Navigate to="/login" />} /> */}
+                <Route path="/userdetails" element={<UserDetails /> } />
                 
                 <Route path='/login' element={<Login />} />
                 {/* <Route path="blogs" element={<Blogs />} /> */}
+
+                <Route path='/playlist' element={<UserPlaylist /> } />
 
                 <Route path="*" element={<NoPage />} />
               </Routes>
