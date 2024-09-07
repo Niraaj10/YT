@@ -24,7 +24,7 @@ const Navbar = () => {
         try {
             const res = await axios.post(`${baseUrl}/users/logout`, {}, { withCredentials: true })
 
-            toast('Logout Successfull', {
+            toast('Logout Successfully', {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -33,7 +33,7 @@ const Navbar = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                progressStyle: { backgroundColor: 'red' }
+                progressStyle: { backgroundColor: 'red', }
             });
             
 
@@ -50,7 +50,16 @@ const Navbar = () => {
                 {/* Navbar */}
 
                 <ToastContainer
-
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
                 />
 
 

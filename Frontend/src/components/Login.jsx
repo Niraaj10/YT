@@ -57,11 +57,7 @@ const Login = () => {
                 }
             );
 
-
-
-            // console.log(res.data);
-            console.log(res.data.message.user);
-            toast('Notification!', {
+            toast('Login Successfully', {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -70,7 +66,12 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
+                progressStyle: { backgroundColor: 'red', }
             });
+
+            // console.log(res.data);
+            console.log(res.data.message.user);
+            
 
             setUser(res.data.message.user)
             console.log(res.data.message.user)
@@ -85,15 +86,21 @@ const Login = () => {
 
     const handleSign = async (e) => {
         e.preventDefault();
-        console.log(signupUser);
-        console.log(profile);
+        // console.log(signupUser);
+        // console.log(profile);
+
+        const formData = new FormData();
+        formData.append('username', signupUser.username);
+        formData.append('password', signupUser.password);
+        formData.append('fullname', signupUser.fullname);
+        formData.append('email', signupUser.email);
+        formData.append('avatar', profile);
+
         try {
-            const res = await axios.post(`${baseUrl}/users/register`, {
-                username: signupUser.username,
-                password: signupUser.password,
-                fullname: signupUser.fullname,
-                email: signupUser.email,
-                avatar: profile
+            const res = await axios.post(`${baseUrl}/users/register`, formData, {
+                headers: {
+                    'Content-Type':'multipart/form-data'
+                }
             });
 
             toast('Account Created Successfully, Please login', {
@@ -105,14 +112,16 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                progressStyle: { backgroundColor: 'red', color: 'black', }
+                progressStyle: { backgroundColor: 'red', }
             });
 
             console.log(res.data);
+            setIslogin(!islogin)
+            
             // navigate('/')
         } catch (error) {
             console.log(error.message);
-            alert("Please enter correct username and password");
+            alert("Please enter valid uesr data");
         }
     };
 
